@@ -1,1 +1,1 @@
-# jukyeong-git.github.io
+# jukyeong.github.io
