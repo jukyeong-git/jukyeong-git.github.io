@@ -1,0 +1,27 @@
+name: Sync Profile README
+
+on:
+  # 매일 자정(UTC 기준)에 자동 실행 (필요에 따라 주기 변경 가능)
+  schedule:
+    - cron: '0 0 * * *'
+  # GitHub Actions 탭에서 수동으로 버튼을 눌러 실행할 수 있도록 허용
+  workflow_dispatch: 
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repo
+        uses: actions/checkout@v3
+
+      - name: Download Profile README
+        # 프로필 리포지토리의 raw 데이터를 다운로드하여 index.md로 저장 (GitHub Pages는 index.md를 메인 페이지로 인식함)
+        run: curl -sL https://raw.githubusercontent.com/jukyeong-git/jukyeong-git/main/README.md -o index.md
+
+      - name: Commit and Push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add index.md
+          # 변경사항이 있을 때만 커밋 및 푸시 수행
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Sync README from profile repo" && git push)
