@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jukyeong Kim - Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    <style>
+        body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; }
+    </style>
+</head>
+<body class="markdown-body">
+    <div id="content">데이터를 불러오는 중입니다...</div>
+
+    <script>
+        // 프로필 리포지토리의 Raw 주소
+        const readmeUrl = 'https://raw.githubusercontent.com/jukyeong-git/jukyeong-git/main/README.md';
+
+        fetch(readmeUrl)
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text);
+            })
+            .catch(error => {
+                document.getElementById('content').innerHTML = 'README를 불러오는데 실패했습니다.';
+            });
+    </script>
+</body>
+</html>
